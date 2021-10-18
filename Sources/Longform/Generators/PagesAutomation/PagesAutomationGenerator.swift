@@ -11,3 +11,5 @@
 //
 
 import Foundation
+import PagesScripting
+

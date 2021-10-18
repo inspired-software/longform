@@ -4,6 +4,9 @@ import PackageDescription
 
 let package = Package(
     name: "longform",
+    platforms: [
+        .macOS(.v11),
+    ],
     products: [
         .library(
             name: "Longform",
@@ -27,7 +30,15 @@ let package = Package(
         .target(
             name: "Longform",
             dependencies: [
+                "PagesScripting",
                 .product(name: "Markdown", package: "swift-markdown"),
+            ]
+        ),
+        .target(
+            name: "PagesScripting",
+            dependencies: [],
+            cSettings: [
+                .define("TARGET_OS_MACOS", to: "1", .when(platforms: [.macOS])),
             ]
         ),
         .testTarget(
@@ -41,3 +52,4 @@ let package = Package(
         ),
     ]
 )
+
