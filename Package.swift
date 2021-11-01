@@ -5,18 +5,18 @@ import PackageDescription
 let package = Package(
     name: "longform",
     platforms: [
-        .macOS(.v11),
+        .macOS(.v10_15),
     ],
     products: [
         .library(
             name: "Longform",
             targets: ["Longform"]),
         .executable(
-            name: "longform",
+            name: "lf",
             targets: ["LongformCLI"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-markdown.git", branch: "main"),
+        .package(name: "swift-markdown", url: "https://github.com/apple/swift-markdown.git", .branch("main")),
         .package(url: "https://github.com/apple/swift-argument-parser.git", from: "0.4.4"),
     ],
     targets: [
@@ -30,21 +30,25 @@ let package = Package(
         .target(
             name: "Longform",
             dependencies: [
-                "PagesScripting",
                 .product(name: "Markdown", package: "swift-markdown"),
+                "Wordprocessing",
             ]
         ),
         .target(
-            name: "PagesScripting",
-            dependencies: [],
-            cSettings: [
-                .define("TARGET_OS_MACOS", to: "1", .when(platforms: [.macOS])),
+            name: "Wordprocessing",
+            dependencies: [
+                "OOXML",
+            ]
+        ),
+        .target(
+            name: "OOXML",
+            dependencies: [
             ]
         ),
         .testTarget(
             name: "LongformTests",
             dependencies: [
-                "Longform"
+                "Longform",
             ],
             resources: [
                 .copy("Documents"),
