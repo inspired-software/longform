@@ -12,8 +12,18 @@ import XCTest
 final class LongformTests: XCTestCase {
     func testOOXMLGeneration() throws {
         let doc = Wordprocessing.Document {
-            Paragraph()
-            "Hello World!"
+            Paragraph {
+                "A String Run!"
+                Text("A Text Run!")
+            }
+            "A String Paragraph!"
+            for i in 1...5 {
+                if i != 2 {
+                    "Number \(i)"
+                } else {
+                    "Number Two"
+                }
+            }
         }
         print(doc.ooxml())
         //XCTAssert(doc.ooxml().contains("<w:p></w:p>"))

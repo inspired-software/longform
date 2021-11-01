@@ -34,7 +34,7 @@ import OOXML
 /// - SeeAlso: [Wordprocessing Document](http://officeopenxml.com/WPdocument.php)
 public struct Document {
     
-    public init(conformance: Conformance = .transitional, @DocumentBuilder _ bodyElements: () -> [PrimativeBodyElement]) {
+    public init(conformance: Conformance = .transitional, @ElementsBuilder<BodyElement> _ bodyElements: () -> [BodyElement]) {
         self.conformance = conformance
         self.bodyElements = bodyElements()
     }
@@ -82,7 +82,7 @@ public struct Document {
     /// - `Paragraph` - Specifies a paragraph of content
     /// - `SectionProperties` - Specifies the section properties for the final section
     /// - `Table` - Specifies a table
-    public var bodyElements: [PrimativeBodyElement] = []
+    public var bodyElements: [BodyElement] = []
     
     /// Specifies the background for every page of the document
     public var background: Background? = nil
@@ -117,21 +117,9 @@ extension Document: HTMLConvertible {
 
 // MARK: -
 
-@resultBuilder
-public struct DocumentBuilder {
-    static public func buildBlock() -> [PrimativeBodyElement] { [] }
-    static public func buildBlock(_ elements: BodyElement...) -> [PrimativeBodyElement] { elements.map { $0.primativeBodyElement } }
-    // TODO: Conditionals
-}
+public protocol BodyElement: OOXMLExportable { }
 
-// MARK: -
-
-public protocol BodyElement {
-    var primativeBodyElement: PrimativeBodyElement { get }
-}
-
-public protocol PrimativeBodyElement: BodyElement, OOXMLExportable { }
-
-extension PrimativeBodyElement {
-    public var primativeBodyElement: PrimativeBodyElement { self }
+extension ElementsBuilder where Element == BodyElement {
+    // TODO: Change this to a markdown style attributed string.
+    public static func buildExpression(_ text: String) -> [Element] { [ Paragraph() { Text(text) } ] }
 }

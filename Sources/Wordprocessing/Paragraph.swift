@@ -24,9 +24,15 @@ import OOXML
 /// A WordprocessingML paragraph
 ///
 /// - SeeAlso: [Wordprocessing Paragraphs](http://officeopenxml.com/WPparagraph.php)
-public struct Paragraph: PrimativeBodyElement {
-    public var properties: [ParagraphProperty] = [] // TODO: Maybe make this a dictionary keyed on class type.
-    public var runElements: [PrimativeRunElement] = []
+public struct Paragraph: BodyElement {
+    
+    public init(@ElementsBuilder<RunElement> _ runElements: () -> [RunElement]) {
+        self.properties = []
+        self.runElements = runElements()
+    }
+    
+    var properties: [ParagraphProperty] // TODO: Maybe make this a dictionary keyed on class type.
+    var runElements: [RunElement]
 }
     
 extension Paragraph: OOXMLConvertible {
@@ -44,14 +50,6 @@ extension Paragraph: HTMLConvertible {
 
 // MARK: -
 
-// Allow strings to be used as a BodyElement
-extension String: BodyElement {
-    // TODO: Change this to a markdown style attributed string.
-    public var primativeBodyElement: PrimativeBodyElement { var p = Paragraph(); p.runElements = [ Text(self) ]; return p } // TODO: embed text with builder
-}
-
-// MARK: -
-
 public protocol ParagraphProperty: OOXMLExportable { }
 
 // TODO: Should this be a enum or protocol? Look at making similar to AttributedString properties
@@ -63,14 +61,10 @@ public enum ParagraphProperties {
 
 // MARK: -
 
-/// A paragraph element that may be converted to a primative OOXML element.
-public protocol RunElement {
-    var primativeRunElement: PrimativeRunElement { get }
-}
+/// A primative OOXML run element.
+public protocol RunElement: OOXMLExportable { }
 
-/// A primative OOXML paragraph element.
-public protocol PrimativeRunElement: RunElement, OOXMLExportable { }
-
-extension PrimativeRunElement {
-    public var primativeRunElement: PrimativeRunElement { self }
+extension ElementsBuilder where Element == RunElement {
+    // TODO: Change this to a markdown style attributed string.
+    public static func buildExpression(_ text: String) -> [Element] { [ Text(text) ] }
 }
