@@ -23,6 +23,7 @@ public struct Text: RunElement {
     
 extension Text: OOXMLConvertible {
     public func ooxml() -> String {
+        // TODO: Remove space preserve when not needed.
         return "<w:t xml:space=\"preserve\">\(text)</w:t>"
     }
 }

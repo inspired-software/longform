@@ -34,9 +34,9 @@ import OOXML
 /// - SeeAlso: [Wordprocessing Document](http://officeopenxml.com/WPdocument.php)
 public struct Document {
     
-    public init(conformance: Conformance = .transitional, @ElementsBuilder<BodyElement> _ bodyElements: () -> [BodyElement]) {
+    public init(conformance: Conformance = .transitional, @ElementsBuilder<Section> _ sections: () -> [Section]) {
         self.conformance = conformance
-        self.bodyElements = bodyElements()
+        self.sections = sections()
     }
     
     // MARK: Types
@@ -82,7 +82,9 @@ public struct Document {
     /// - `Paragraph` - Specifies a paragraph of content
     /// - `SectionProperties` - Specifies the section properties for the final section
     /// - `Table` - Specifies a table
-    public var bodyElements: [BodyElement] = []
+    //public var bodyElements: [BodyElement] = []
+    
+    public var sections: [Section]
     
     /// Specifies the background for every page of the document
     public var background: Background? = nil
@@ -93,11 +95,12 @@ extension Document: OOXMLConvertible {
         let backgroundXML = background?.ooxml() ?? ""
         let conformanceAttr = conformance != .transitional ? " conformance=\(conformance)" : ""
         let additionalAttrs = additionalAttributes.count > 0 ? " " + additionalAttributes.joined(separator: " ") : ""
+        
         return """
         <?xml version="1.0" encoding="UTF-8"?>\
         <w:document\(conformanceAttr)\(additionalAttrs)>\
         \(backgroundXML)\
-        <w:body>\(bodyElements.map { $0.ooxml() }.joined())</w:body>\
+        <w:body>\(sections.enumerated().map { $1.ooxml(lastSection: $0 == sections.count - 1) }.joined())</w:body>\
         </w:document>
         """
     }
@@ -105,11 +108,12 @@ extension Document: OOXMLConvertible {
 
 extension Document: HTMLConvertible {
     public func html() -> String {
+        let sectionElements = sections.flatMap { $0.sectionElements }
         return """
         <?xml version="1.0" encoding="UTF-8"?>\
         <html>\
         <head></head>\
-        <body>\(bodyElements.map { $0.html() }.joined())</body>\
+        <body>\(sectionElements.map { $0.html() }.joined())</body>\
         </html>
         """
     }
@@ -117,9 +121,5 @@ extension Document: HTMLConvertible {
 
 // MARK: -
 
-public protocol BodyElement: OOXMLExportable { }
+public protocol BodyElement: SectionElement { }
 
-extension ElementsBuilder where Element == BodyElement {
-    // TODO: Change this to a markdown style attributed string.
-    public static func buildExpression(_ text: String) -> [Element] { [ Paragraph() { Text(text) } ] }
-}

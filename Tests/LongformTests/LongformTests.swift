@@ -12,16 +12,23 @@ import XCTest
 final class LongformTests: XCTestCase {
     func testOOXMLGeneration() throws {
         let doc = Wordprocessing.Document {
-            Paragraph {
-                "A String Run!"
-                Text("A Text Run!")
+            Section { }
+            Section {
+                Paragraph {
+                    "A String Run!"
+                }
+                Paragraph {
+                    Text("A Text Run!")
+                }
             }
-            "A String Paragraph!"
-            for i in 1...5 {
-                if i != 2 {
-                    "Number \(i)"
-                } else {
-                    "Number Two"
+            Section {
+                "A String Paragraph!"
+                for i in 1...5 {
+                    if i != 2 {
+                        "Number \(i)"
+                    } else {
+                        "Number Two"
+                    }
                 }
             }
         }

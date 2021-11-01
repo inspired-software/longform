@@ -24,7 +24,7 @@ import OOXML
 /// A WordprocessingML paragraph
 ///
 /// - SeeAlso: [Wordprocessing Paragraphs](http://officeopenxml.com/WPparagraph.php)
-public struct Paragraph: BodyElement {
+public struct Paragraph: SectionElement {
     
     public init(@ElementsBuilder<RunElement> _ runElements: () -> [RunElement]) {
         self.properties = []
@@ -65,6 +65,6 @@ public enum ParagraphProperties {
 public protocol RunElement: OOXMLExportable { }
 
 extension ElementsBuilder where Element == RunElement {
-    // TODO: Change this to a markdown style attributed string.
+    // TODO: Change this to a markdown style attributed string or run through the Longform Markdown processor.
     public static func buildExpression(_ text: String) -> [Element] { [ Text(text) ] }
 }
