@@ -37,21 +37,21 @@ public struct Section {
             return sectionElements.map { $0.ooxml() }.joined() + sectionProperties.ooxml()
         } else {
             var elements: [SectionElement]
+            var lastParagraphXML: String
             if properties.isEmpty {
                 // There are no section properties
                 elements = sectionElements
+                lastParagraphXML = ""
             } else if !sectionElements.isEmpty, let paragraph = sectionElements.last as? Paragraph {
                 // The last section element is a paragraph
-                var newParagraph = paragraph
-                newParagraph.properties = paragraph.properties + [ sectionProperties ]
-                elements = sectionElements.dropLast() + [ newParagraph ]
+                elements = sectionElements.dropLast()
+                lastParagraphXML = paragraph.ooxml(sectionProperties: sectionProperties)
             } else {
                 // The last section element is not a paragraph
-                var newParagraph = Paragraph { }
-                newParagraph.properties = [ sectionProperties ]
-                elements = sectionElements + [ newParagraph ]
+                elements = sectionElements
+                lastParagraphXML = Paragraph { }.ooxml(sectionProperties: sectionProperties)
             }
-            return elements.map { $0.ooxml() }.joined()
+            return elements.map { $0.ooxml() }.joined() + lastParagraphXML
         }
     }
 

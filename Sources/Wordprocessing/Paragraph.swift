@@ -36,10 +36,13 @@ public struct Paragraph: SectionElement {
 }
     
 extension Paragraph: OOXMLConvertible {
-    public func ooxml() -> String {
-        let propertiesXML = properties.count > 0 ? "<w:pPr>\(properties.map { $0.ooxml() }.joined())</w:pPr>" : ""
+    func ooxml(sectionProperties: SectionProperties?) -> String {
+        let props = sectionProperties.map { properties + [ $0 ] } ?? properties
+        let propertiesXML = props.count > 0 ? "<w:pPr>\(props.map { $0.ooxml() }.joined())</w:pPr>" : ""
         return "<w:p>\(propertiesXML)<w:r>\(runElements.map { $0.ooxml() }.joined())</w:r></w:p>"
     }
+    
+    public func ooxml() -> String { ooxml(sectionProperties: nil) }
 }
 
 extension Paragraph: HTMLConvertible {
