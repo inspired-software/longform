@@ -25,9 +25,14 @@ final class LongformTests: XCTestCase {
                 "A String Paragraph!"
                 for i in 1...5 {
                     if i != 2 {
-                        "Number \(i)"
+                        "Paragraph \(i)"
                     } else {
-                        "Number Two"
+                        "Paragraph Two"
+                    }
+                }
+                Paragraph {
+                    for i in 1...5 {
+                        "Run \(i)"
                     }
                 }
             }
