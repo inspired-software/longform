@@ -24,22 +24,21 @@ import OOXML
 /// A WordprocessingML paragraph
 ///
 /// - SeeAlso: [Wordprocessing Paragraphs](http://officeopenxml.com/WPparagraph.php)
-public struct Paragraph: SectionElement {
-    
-    public init(@ElementsBuilder<RunElement> _ runElements: () -> [RunElement]) {
+public struct Paragraph: SectionContent {
+    public init(@ContentBuilder<RunContent> _ content: () -> [RunContent]) {
         self.properties = []
-        self.runElements = runElements()
+        self.content = content()
     }
     
     var properties: [ParagraphProperty] // TODO: Maybe make this a dictionary keyed on class type.
-    var runElements: [RunElement]
+    var content: [RunContent]
 }
     
 extension Paragraph: OOXMLConvertible {
     func ooxml(sectionProperties: SectionProperties?) -> String {
         let props = sectionProperties.map { properties + [ $0 ] } ?? properties
         let propertiesXML = props.count > 0 ? "<w:pPr>\(props.map { $0.ooxml() }.joined())</w:pPr>" : ""
-        return "<w:p>\(propertiesXML)<w:r>\(runElements.map { $0.ooxml() }.joined())</w:r></w:p>"
+        return "<w:p>\(propertiesXML)<w:r>\(content.map { $0.ooxml() }.joined())</w:r></w:p>"
     }
     
     public func ooxml() -> String { ooxml(sectionProperties: nil) }
@@ -47,7 +46,7 @@ extension Paragraph: OOXMLConvertible {
 
 extension Paragraph: HTMLConvertible {
     public func html() -> String {
-        return "<p>\(runElements.map { $0.html() }.joined())</p>"
+        return "<p>\(content.map { $0.html() }.joined())</p>"
     }
 }
 
@@ -65,9 +64,9 @@ public enum ParagraphProperties {
 // MARK: -
 
 /// A primative OOXML run element.
-public protocol RunElement: OOXMLExportable { }
+public protocol RunContent: OOXMLExportable { }
 
-extension ElementsBuilder where Element == RunElement {
+extension ContentBuilder where Content == RunContent {
     // TODO: Change this to a markdown style attributed string or run through the Longform Markdown processor.
-    public static func buildExpression(_ text: String) -> [Element] { [ Text(text) ] }
+    public static func buildExpression(_ text: String) -> [Content] { [ Text(text) ] }
 }

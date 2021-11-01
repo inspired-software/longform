@@ -34,7 +34,7 @@ import OOXML
 /// - SeeAlso: [Wordprocessing Document](http://officeopenxml.com/WPdocument.php)
 public struct Document {
     
-    public init(conformance: Conformance = .transitional, @ElementsBuilder<Section> _ sections: () -> [Section]) {
+    public init(conformance: Conformance = .transitional, @ContentBuilder<Section> _ sections: () -> [Section]) {
         self.conformance = conformance
         self.sections = sections()
     }
@@ -108,7 +108,7 @@ extension Document: OOXMLConvertible {
 
 extension Document: HTMLConvertible {
     public func html() -> String {
-        let sectionElements = sections.flatMap { $0.sectionElements }
+        let sectionElements = sections.flatMap { $0.content() }
         return """
         <?xml version="1.0" encoding="UTF-8"?>\
         <html>\
@@ -118,8 +118,3 @@ extension Document: HTMLConvertible {
         """
     }
 }
-
-// MARK: -
-
-public protocol BodyElement: SectionElement { }
-

@@ -9,6 +9,15 @@ import XCTest
 @testable import Longform
 @testable import Wordprocessing
 
+struct MyComponent: Component {
+    var body: Content {
+        Paragraph {
+            "Hello World!"
+        }
+        "Hello Universe!"
+    }
+}
+
 final class LongformTests: XCTestCase {
     func testOOXMLGeneration() throws {
         let doc = Wordprocessing.Document {
@@ -20,6 +29,7 @@ final class LongformTests: XCTestCase {
                 Paragraph {
                     Text("A Text Run!")
                 }
+                MyComponent()
             }
             Section {
                 "A String Paragraph!"

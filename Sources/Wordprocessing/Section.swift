@@ -13,15 +13,17 @@ import OOXML
 /// - SeeAlso: [Wordprocessing Sections](http://officeopenxml.com/WPsection.php)
 public struct Section {
  
-    public init(@ElementsBuilder<SectionElement> _ sectionElements: () -> [SectionElement]) {
-        self.sectionElements = sectionElements()
+    public init(@ContentBuilder<Component> _ components: () -> [Component]) {
+        self.components = components()
     }
     
-    init(sectionElements: [SectionElement]) {
-        self.sectionElements = sectionElements
+    init(components: [Component]) {
+        self.components = components
     }
     
-    var sectionElements: [SectionElement]
+    var components: [Component]
+    
+    func content() -> [SectionContent] { components.flatMap { $0.body } }
     
     var sectionProperties: SectionProperties = SectionProperties()
     
@@ -31,42 +33,57 @@ public struct Section {
     }
 
     public func ooxml(lastSection: Bool) -> String {
-        guard !sectionElements.isEmpty || !properties.isEmpty else { return "" }
+        let content = content()
+        guard !content.isEmpty || !properties.isEmpty else { return "" }
         if lastSection {
             // The last section is handled differently
-            return sectionElements.map { $0.ooxml() }.joined() + sectionProperties.ooxml()
+            return content.map { $0.ooxml() }.joined() + sectionProperties.ooxml()
         } else {
-            var elements: [SectionElement]
+            var sectContent: [SectionContent]
             var lastParagraphXML: String
             if properties.isEmpty {
                 // There are no section properties
-                elements = sectionElements
+                sectContent = content
                 lastParagraphXML = ""
-            } else if !sectionElements.isEmpty, let paragraph = sectionElements.last as? Paragraph {
+            } else if !content.isEmpty, let paragraph = content.last as? Paragraph {
                 // The last section element is a paragraph
-                elements = sectionElements.dropLast()
+                sectContent = content.dropLast()
                 lastParagraphXML = paragraph.ooxml(sectionProperties: sectionProperties)
             } else {
                 // The last section element is not a paragraph
-                elements = sectionElements
+                sectContent = content
                 lastParagraphXML = Paragraph { }.ooxml(sectionProperties: sectionProperties)
             }
-            return elements.map { $0.ooxml() }.joined() + lastParagraphXML
+            return sectContent.map { $0.ooxml() }.joined() + lastParagraphXML
         }
     }
 
     public func html() -> String {
-        return sectionElements.map { $0.html() }.joined()
+        let content = content()
+        return content.map { $0.html() }.joined()
     }
+    
+    // MARK: Modifiers
+    
+    public enum SectionOrientation: String {
+        case portrait
+        case landscape
+    }
+    
+    /*
+    @inlinable public func pageSize(width: Int, height: Int, orientation: SectionOrientation) -> Paragraph {
+        return self
+    }
+     */
 }
 
 // MARK: -
 
-public protocol SectionElement: OOXMLExportable { }
+public protocol SectionContent: OOXMLExportable, Component { }
 
-extension ElementsBuilder where Element == SectionElement {
+extension ContentBuilder where Content == SectionContent {
     // TODO: Change this to a markdown style attributed string or run through the Longform Markdown processor.
-    public static func buildExpression(_ text: String) -> [Element] { [ Paragraph() { Text(text) } ] }
+    public static func buildExpression(_ text: String) -> [Content] { [ Paragraph() { Text(text) } ] }
 }
 
 // MARK: -

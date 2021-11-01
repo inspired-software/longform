@@ -11,7 +11,7 @@ import OOXML
 /// WordprocessingML text
 ///
 /// - SeeAlso: [Wordprocessing Paragraphs](http://officeopenxml.com/WPparagraph.php)
-public struct Text: RunElement {
+public struct Text: RunContent {
     init(_ text: String) {
         self.text = text
     }
