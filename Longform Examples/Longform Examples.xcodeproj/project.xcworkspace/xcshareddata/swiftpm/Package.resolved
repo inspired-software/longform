@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/apple/swift-argument-parser.git",
         "state": {
           "branch": null,
-          "revision": "83b23d940471b313427da226196661856f6ba3e0",
-          "version": "0.4.4"
+          "revision": "6b2aa2748a7881eebb9f84fb10c01293e15b52ca",
+          "version": "0.5.0"
         }
       },
       {
@@ -15,7 +15,7 @@
         "repositoryURL": "https://github.com/apple/swift-cmark.git",
         "state": {
           "branch": "gfm",
-          "revision": "2190baadafe6e83e50f8f97c2909eb48fd3eae66",
+          "revision": "7fc530e5f12432db9768326ff74dc46de72a24e2",
           "version": null
         }
       },
@@ -24,7 +24,7 @@
         "repositoryURL": "https://github.com/apple/swift-markdown.git",
         "state": {
           "branch": "main",
-          "revision": "b73b9d8c140efb658ae241c50d46bade1658e80a",
+          "revision": "16ebb0ccea68c0009f550bd48cca1df8675685dc",
           "version": null
         }
       }
