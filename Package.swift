@@ -18,6 +18,7 @@ let package = Package(
     dependencies: [
         .package(name: "swift-markdown", url: "https://github.com/apple/swift-markdown.git", .branch("main")),
         .package(url: "https://github.com/apple/swift-argument-parser.git", from: "0.4.4"),
+        .package(url: "https://github.com/weichsel/ZIPFoundation.git", from: "0.9.14"),
     ],
     targets: [
         .executableTarget(
@@ -31,6 +32,7 @@ let package = Package(
             name: "Longform",
             dependencies: [
                 .product(name: "Markdown", package: "swift-markdown"),
+                .product(name: "ZIPFoundation", package: "ZIPFoundation"),
                 "Wordprocessing",
             ]
         ),

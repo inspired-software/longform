@@ -2,15 +2,6 @@
   "object": {
     "pins": [
       {
-        "package": "swift-argument-parser",
-        "repositoryURL": "https://github.com/apple/swift-argument-parser.git",
-        "state": {
-          "branch": null,
-          "revision": "83b23d940471b313427da226196661856f6ba3e0",
-          "version": "0.4.4"
-        }
-      },
-      {
         "package": "cmark-gfm",
         "repositoryURL": "https://github.com/apple/swift-cmark.git",
         "state": {
@@ -26,6 +17,15 @@
           "branch": "main",
           "revision": "b73b9d8c140efb658ae241c50d46bade1658e80a",
           "version": null
+        }
+      },
+      {
+        "package": "ZIPFoundation",
+        "repositoryURL": "https://github.com/weichsel/ZIPFoundation.git",
+        "state": {
+          "branch": null,
+          "revision": "7254c74b49cec2cb81520523ba993c671f71b066",
+          "version": "0.9.14"
         }
       }
     ]

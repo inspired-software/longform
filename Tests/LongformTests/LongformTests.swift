@@ -8,6 +8,7 @@
 import XCTest
 @testable import Longform
 @testable import Wordprocessing
+import Markdown
 
 struct MyComponent: Component {
     var body: Content {
@@ -19,6 +20,27 @@ struct MyComponent: Component {
 }
 
 final class LongformTests: XCTestCase {
+    
+    func testMarkdownParser() throws {
+        let source =
+            """
+            # Heading 1
+            
+            ## Heading 2
+            
+            ## Heading With **Bold** Text
+            
+            ## **A Bold Heading**
+            
+            This is a markup *document*.
+            
+            - SeeAlso: [Anatomy of a WordProcessingML File](http://officeopenxml.com/anatomyofOOXML.php)
+            
+            """
+        let longform = Longform(source: source)
+        longform.save(to: URL(fileURLWithPath: "/Users/esummers/Desktop/test.docx"))
+    }
+    
     func testOOXMLGeneration() throws {
         let doc = Wordprocessing.Document {
             Section { }

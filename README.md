@@ -11,6 +11,10 @@ Longform is an Office OpenXML (OOXML) document processor for technical documenta
 
 This project is in early development and is not yet useable.
 
+## TODO
+
+* Add support for adding snippets that can be used elsewhere in the document. For example allow a template to have glossary terms (and tags on those terms for categorization).
+
 ## Future Work
 
 * Render document and content using SwiftUI
