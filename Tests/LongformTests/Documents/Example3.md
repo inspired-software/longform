@@ -70,8 +70,6 @@ Example link: [Anatomy of a WordProcessingML File](http://officeopenxml.com/anat
             
 Another example link: [WWDC Notes][wwdc-notes]
           
-[wwdc-notes]: https://www.wwdcnotes.com/notes/wwdc21/10109/ "WWDC Notes"
-
-[MyStyle]: style (color: blue)
-
-[myEnvironmentVariable]: Hello World.
+[wwdc-notes]: https://www.wwdcnotes.com/notes/wwdc21/10109/
+[MyStyle]: Style (color: blue)
+[MyEnvVariable]: String "This is a value"
