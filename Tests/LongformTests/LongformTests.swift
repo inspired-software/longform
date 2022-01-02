@@ -24,6 +24,8 @@ final class LongformTests: XCTestCase {
     func testMarkdownParser() throws {
         let source =
             """
+            @TOC
+            
             # Heading 1
             
             ## Heading 2
@@ -32,11 +34,27 @@ final class LongformTests: XCTestCase {
             
             ## **A Bold Heading**
             
-            This is a markup *document*.
+            @Style(plain, keepNext: true) {
+               This is a markup *document*.
+            }
             
-            - SeeAlso: [Anatomy of a WordProcessingML File](http://officeopenxml.com/anatomyofOOXML.php)
+            This is markup with a *<style color="blue">**custom inline**</style>* attribute.
+            
+            <style name="Alt Body Text">
+            This markup has *style* overridden
+            </style>
+            
+            Example link: [Anatomy of a WordProcessingML File](http://officeopenxml.com/anatomyofOOXML.php)
+            
+            Another example link: [WWDC Notes][wwdc-notes]
+            
+            Possible way for [inline styles][some-style] maybe?
+            
+            [wwdc-notes]: https://www.wwdcnotes.com/notes/wwdc21/10109/
+            [some-style]: ^(color:blue,bold:true)
             
             """
+        // Note: this doesn't work "This is markup with a ^[custom inline](color: blue, bold: true) attribute."
         let longform = Longform(source: source)
         longform.save(to: URL(fileURLWithPath: "/Users/esummers/Desktop/test.docx"))
     }

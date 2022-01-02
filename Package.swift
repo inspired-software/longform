@@ -19,6 +19,7 @@ let package = Package(
         .package(name: "swift-markdown", url: "https://github.com/apple/swift-markdown.git", .branch("main")),
         .package(url: "https://github.com/apple/swift-argument-parser.git", from: "0.4.4"),
         .package(url: "https://github.com/weichsel/ZIPFoundation.git", from: "0.9.14"),
+        .package(url: "https://github.com/MaxDesiatov/XMLCoder", from: "0.13.1"),
     ],
     targets: [
         .executableTarget(

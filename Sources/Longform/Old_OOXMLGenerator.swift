@@ -56,13 +56,12 @@ public struct OOXMLGenerator: MarkupWalker {
         let backgroundXML = "" // TODO: Implement this. Probably need to make sure we decend in to a metadata block first.
         let conformanceAttr = conformance != .transitional ? " conformance=\(conformance)" : ""
         let additionalAttrs = documentAttributes.count > 0 ? " " + documentAttributes.joined(separator: " ") : ""
-        output.append(
-            """
-            <?xml version="1.0" encoding="UTF-8"?>
-            <w:document\(conformanceAttr)\(additionalAttrs)>\
-            \(backgroundXML)\
-            <w:body>
-            """)
+        output.append("""
+        <?xml version="1.0" encoding="UTF-8"?>
+        <w:document\(conformanceAttr)\(additionalAttrs)>\
+        \(backgroundXML)\
+        <w:body>
+        """)
         descendInto(document)
         output.append("</w:body></w:document>")
     }
@@ -71,10 +70,9 @@ public struct OOXMLGenerator: MarkupWalker {
     
     public mutating func visitEmphasis(_ emphasizedText: Emphasis) {
         // Turn on italics for both standard text (w:i) and complex glyphs (w:iCs).
-        output.append(
-            """
-            <w:r><w:rPr><w:i w:val="1"/><w:iCs w:val="1"/></w:rPr><w:t>\(emphasizedText.plainText)</w:t></w:r>
-            """)
+        output.append("""
+        <w:r><w:rPr><w:i w:val="1"/><w:iCs w:val="1"/></w:rPr><w:t>\(emphasizedText.plainText)</w:t></w:r>
+        """)
     }
     
     public mutating func visitImage(_ image: Image) {
@@ -91,10 +89,9 @@ public struct OOXMLGenerator: MarkupWalker {
     
     public mutating func visitStrong(_ strongText: Strong) {
         // Turn on bold for both standard text (w:b) and complex glyphs (w:bCs).
-        output.append(
-            """
-            <w:r><w:rPr><w:b w:val="1"/><w:bCs w:val="1"/></w:rPr><w:t>\(strongText.plainText)</w:t></w:r>
-            """)
+        output.append("""
+        <w:r><w:rPr><w:b w:val="1"/><w:bCs w:val="1"/></w:rPr><w:t>\(strongText.plainText)</w:t></w:r>
+        """)
     }
     
     // MARK: Inline Leaf Visitors
@@ -167,10 +164,7 @@ public struct OOXMLGenerator: MarkupWalker {
     // MARK: Inline Container Blocks
     
     public mutating func visitParagraph(_ paragraph: Paragraph) {
-        output.append(
-            """
-            <w:p><w:pPr><w:pStyle w:val="Body"/></w:pPr>
-            """)
+        output.append(#"<w:p><w:pPr><w:pStyle w:val="Body"/></w:pPr>"#)
         // TODO: Add Properties
         descendInto(paragraph)
         output.append("</w:p>")
@@ -190,10 +184,9 @@ public struct OOXMLGenerator: MarkupWalker {
     
     // TODO: This is putting a paragraph inside a paragraph. I need to abstract paragraph styles in other struct so I can apply it later. In fact run rendering in general probably should be abstracted.
     public mutating func visitHeading(_ heading: Heading) {
-        output.append(
-            """
-            <w:p><w:pPr><w:pStyle w:val="Heading \(heading.level)"/></w:pPr><w:r><w:t>\(heading.plainText)</w:t></w:r></w:p>
-            """)
+        output.append("""
+        <w:p><w:pPr><w:pStyle w:val="Heading \(heading.level)"/></w:pPr><w:r><w:t>\(heading.plainText)</w:t></w:r></w:p>
+        """)
         // TODO: Add Properties, Can headings have other styles on top of them?
     }
     
