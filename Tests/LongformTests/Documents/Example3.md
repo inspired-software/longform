@@ -28,7 +28,9 @@ Maybe allow dropping the carrot. This is markup with a [custom inline](color: bl
 
 This is a possible syntax for custom variables: \(myEnvironmentVariable)
 
-Another idea: ^[placeholder value](variable: myEnvironmentVariable)
+Or maybe: \[][myEnvVariable] \[placeholder][myEnvVariable]
+Or maybe: [myEnvVariable]
+or maybe: \[myEnvVariable]
 
 Maybe use Yaml syntax in environment block?
 

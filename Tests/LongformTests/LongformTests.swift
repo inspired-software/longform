@@ -51,9 +51,8 @@ final class LongformTests: XCTestCase {
             Possible way for [inline styles][some-style] maybe?
             
             [wwdc-notes]: https://www.wwdcnotes.com/notes/wwdc21/10109/
-            [some-style]: ^(color:blue,bold:true)
-            
-            [MyStyle]: style (color: blue)
+            [MyStyle]: Style (color: blue)
+            [MyEnvVariable]: String "This is a value"
             
             """
         // Note: this doesn't work "This is markup with a ^[custom inline](color: blue, bold: true) attribute."
