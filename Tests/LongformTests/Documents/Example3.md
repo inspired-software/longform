@@ -20,6 +20,8 @@ This markup has style overridden
 
 @Override(style: body, font: Helvetica, fontSize: 14)
 
+Allow overriding styling of bold and italic markdown. Maybe it could also override inside paragraph style.
+
 This is markup with a ^[custom inline](color: blue, bold: true) attribute. Another option would be ^[custom inline 2](style: color-text)
 
 Maybe allow dropping the carrot. This is markup with a [custom inline](color: blue, bold: true) attribute.
