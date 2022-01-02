@@ -22,11 +22,18 @@ This markup has style overridden
 
 This is markup with a ^[custom inline](color: blue, bold: true) attribute. Another option would be ^[custom inline 2](style: color-text)
 
+Maybe allow dropping the carrot. This is markup with a [custom inline](color: blue, bold: true) attribute.
+
 ### Variables
 
-This is a possible syntax for custom variables: \(myVariable)
+This is a possible syntax for custom variables: \(myEnvironmentVariable)
 
-Another idea: ^[placeholder value](variable: myVariable)
+Another idea: ^[placeholder value](variable: myEnvironmentVariable)
+
+### Image
+
+@Comment { Maybe extend cmark to add parameters? }
+![My Image](https://example.com/someimg.png, scale: fit)
 
 ### Tables
 
@@ -37,9 +44,18 @@ Another idea: ^[placeholder value](variable: myVariable)
 }
 
 ### Links
-            
-Example link: [Anatomy of a WordProcessingML File](http://officeopenxml.com/anatomyofOOXML.php)
+   
+@Comment { Maybe extend cmark to add parameters? }            
+Example link: [Anatomy of a WordProcessingML File](http://officeopenxml.com/anatomyofOOXML.php, color: blue)
             
 Another example link: [WWDC Notes][wwdc-notes]
-                        
+          
 [wwdc-notes]: https://www.wwdcnotes.com/notes/wwdc21/10109/
+
+[myEnvironmentVariable]: Hello World.
+
+@Environment {
+    myEnvironmentVariable: Hello World.
+}
+
+
