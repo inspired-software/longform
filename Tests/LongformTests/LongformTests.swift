@@ -53,6 +53,8 @@ final class LongformTests: XCTestCase {
             [wwdc-notes]: https://www.wwdcnotes.com/notes/wwdc21/10109/
             [some-style]: ^(color:blue,bold:true)
             
+            [MyStyle]: style (color: blue)
+            
             """
         // Note: this doesn't work "This is markup with a ^[custom inline](color: blue, bold: true) attribute."
         let longform = Longform(source: source)

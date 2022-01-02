@@ -30,9 +30,27 @@ This is a possible syntax for custom variables: \(myEnvironmentVariable)
 
 Another idea: ^[placeholder value](variable: myEnvironmentVariable)
 
+Maybe use Yaml syntax in environment block?
+
+@Environment {
+    myEnvironmentVariable: Hello World.
+}
+
+@DocumentProperties {
+    Author: John Smith
+}
+
+### Comments
+
+[This is a comment that will be hidden.]: # 
+
+@Comment { 
+    Alternate comment block.
+}
+
 ### Image
 
-@Comment { Maybe extend cmark to add parameters? }
+[Maybe extend cmark to add parameters?]: #
 ![My Image](https://example.com/someimg.png, scale: fit)
 
 ### Tables
@@ -50,12 +68,8 @@ Example link: [Anatomy of a WordProcessingML File](http://officeopenxml.com/anat
             
 Another example link: [WWDC Notes][wwdc-notes]
           
-[wwdc-notes]: https://www.wwdcnotes.com/notes/wwdc21/10109/
+[wwdc-notes]: https://www.wwdcnotes.com/notes/wwdc21/10109/ "WWDC Notes"
+
+[MyStyle]: style (color: blue)
 
 [myEnvironmentVariable]: Hello World.
-
-@Environment {
-    myEnvironmentVariable: Hello World.
-}
-
-
