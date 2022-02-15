@@ -72,7 +72,7 @@ final class LongformTests: XCTestCase {
                 What about some descriptive text at the beginning of a section. Maybe section titles shouldn't be included in DefineTerms...
             }
 
-            @DefineTerms(type: "glossary") {
+            @DefineTerms(type: "glossary", section: "glossarySection") {
                 # Section Name
             
                 Description of this section.
@@ -80,14 +80,20 @@ final class LongformTests: XCTestCase {
                 - Some Term: A description for the term.
             }
             
-            @DefineTemplate(name: "glossarySection") {
+            <!-- If this is not defined then all terms referencing the section would be ignored. -->
+            @DefineTermsSection(name: "glossarySection") {
+                # Section Name
+                        
+                A description of this section
+            }
+            
+            @DefineTemplate(name: "someSection") {
                 # Section Name
             
                 A description of this section
-            
-                @Terms(type: "glossary")
             }
             
+            <!-- alternative... -->
             <!-- TODO: Maybe something like the following for table rows. -->
             <!-- Add to a set of templates. By default sort by section name. -->
             @DefineTemplateSet(name: "glossarySection") {
