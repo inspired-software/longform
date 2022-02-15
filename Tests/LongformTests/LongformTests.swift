@@ -88,6 +88,7 @@ final class LongformTests: XCTestCase {
                 @Terms(type: "glossary")
             }
             
+            <!-- TODO: Maybe something like the following for table rows. -->
             <!-- Add to a set of templates. By default sort by section name. -->
             @DefineTemplateSet(name: "glossarySection") {
                 # Section Name
