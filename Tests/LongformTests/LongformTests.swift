@@ -75,13 +75,26 @@ final class LongformTests: XCTestCase {
             @DefineTerms(type: "glossary") {
                 # Section Name
             
+                Description of this section.
+            
                 - Some Term: A description for the term.
             }
             
-            @DefineTemplate(name: "sectionNameHeader") {
+            @DefineTemplate(name: "glossarySection") {
                 # Section Name
             
                 A description of this section
+            
+                @Terms(type: "glossary")
+            }
+            
+            <!-- Add to a set of templates. By default sort by section name. -->
+            @DefineTemplateSet(name: "glossarySection") {
+                # Section Name
+                        
+                A description of this section
+                        
+                @Terms(type: "glossary")
             }
             
             # Glossary
