@@ -77,12 +77,22 @@ final class LongformTests: XCTestCase {
             @Terms(type: "glossary")
             
             @Terms {
-                # Section Name
+                # Sites in Alphabetical Order
                         
-                - Some Term: A description for the term.
+                - [Swift](https://www.swift.org):
+                    A general purpose programming language.
+            }
+            
+            @Terms {
+                # Ordered Sites
+                                    
+                1. [Swift](https://www.swift.org):
+                    A general purpose programming language.
             }
             
             Example link: [Anatomy of a WordProcessingML File](http://officeopenxml.com/anatomyofOOXML.php)
+            
+            Example Image: ![An Image](image.png)
             
             Another example link: [WWDC Notes][wwdc-notes]
             
