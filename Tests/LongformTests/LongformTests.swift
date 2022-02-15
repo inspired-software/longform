@@ -126,8 +126,12 @@ final class LongformTests: XCTestCase {
             
             Example Image: ![An Image](image.png "An Image Title")
             
-            Example Image 2: <img src="image.png" width=100>
-                                                                                    
+            <!--
+            Example Image 2: ^[![An Image](image.png "An Image Title")](width: 100)
+            -->
+            
+            @ImageStyle(name: "image.png", width: 100)
+            
             - List Item 1
             
                 Testing
@@ -139,13 +143,23 @@ final class LongformTests: XCTestCase {
                         
                 + List Item 3
             
-            Another example link: [WWDC Notes][wwdc-notes]
+            <!-- Maybe allow linking to glossary or hover-over tip. -->
+            <!-- ^[Some Term](term: glossary) -->
             
-            Possible way for [inline styles][some-style] maybe?
+            <!-- It would be nice to move this to the bottom like links, but might not be able to with cmark. -->
+            <!-- ^[See footnote.](footnote: "This is a footnote.") -->
             
-            [wwdc-notes]: https://www.wwdcnotes.com/notes/wwdc21/10109/
+            Another example link: [WWDC Notes][1]
+            
+            <!-- Possible way for [inline styles][some-style] maybe? -->
+            
+            <!--
             [MyStyle]: Style (color: blue)
             [MyEnvVariable]: String "This is a value"
+            [2]: http://path.to/image "Image title" width=40px height=400px
+            -->
+            
+            [1]: https://www.wwdcnotes.com/notes/wwdc21/10109/
             
             """
         // Note: this doesn't work "This is markup with a ^[custom inline](color: blue, bold: true) attribute."
