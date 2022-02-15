@@ -24,6 +24,11 @@ final class LongformTests: XCTestCase {
     func testMarkdownParser() throws {
         let source =
             """
+            @Metadata(
+                previousSection: "foo",
+                nextSection: "bar"
+                )
+            
             @TOC
             
             # Heading 1
@@ -43,6 +48,12 @@ final class LongformTests: XCTestCase {
             <style name="Alt Body Text">
             This markup has *style* overridden
             </style>
+            
+            @Table {
+                # First Name, Last Name
+                "John", "Smith"
+                "**Hello**", "*World*"
+            }
             
             Example link: [Anatomy of a WordProcessingML File](http://officeopenxml.com/anatomyofOOXML.php)
             
