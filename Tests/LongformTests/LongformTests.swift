@@ -56,6 +56,8 @@ final class LongformTests: XCTestCase {
                 "**Hello**", "*World*"
             }
             
+            <!-- A comment -->
+            
             @Comment {
                 Various terms to add to a glossary or index.
             
@@ -66,6 +68,8 @@ final class LongformTests: XCTestCase {
                 Should have something analogous for an index.
             
                 Glossary might be the default type.
+            
+                What about some descriptive text at the beginning of a section. Maybe section titles shouldn't be included in DefineTerms...
             }
 
             @DefineTerms(type: "glossary") {
@@ -74,25 +78,46 @@ final class LongformTests: XCTestCase {
                 - Some Term: A description for the term.
             }
             
+            @DefineTemplate(name: "sectionNameHeader") {
+                # Section Name
+            
+                A description of this section
+            }
+            
+            # Glossary
+            
             @Terms(type: "glossary")
             
+            # Sites in Alphabetical Order
+            
             @Terms {
-                # Sites in Alphabetical Order
-                        
                 - [Swift](https://www.swift.org):
                     A general purpose programming language.
             }
             
+            # Ordered Sites
+            
             @Terms {
-                # Ordered Sites
-                                    
                 1. [Swift](https://www.swift.org):
                     A general purpose programming language.
             }
             
             Example link: [Anatomy of a WordProcessingML File](http://officeopenxml.com/anatomyofOOXML.php)
             
-            Example Image: ![An Image](image.png)
+            Example Image: ![An Image](image.png "An Image Title")
+            
+            Example Image 2: <img src="image.png" width=100>
+                                                                                    
+            - List Item 1
+            
+                Testing
+            
+                <!-- Looks like swift-markdown needs to support cmark attributes -->
+                Image: <!-- ^[](image: imageName) -->
+                                
+                + List Item 2
+                        
+                + List Item 3
             
             Another example link: [WWDC Notes][wwdc-notes]
             
