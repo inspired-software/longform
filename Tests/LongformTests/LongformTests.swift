@@ -55,6 +55,26 @@ final class LongformTests: XCTestCase {
                 "**Hello**", "*World*"
             }
             
+            @Comment {
+                Various terms to add to a glossary or index.
+            
+                Docc uses the following syntax, but that is redundant in this case.
+            
+                - term Some Term: A description for the term.
+            
+                Should have something analogous for an index.
+            
+                Glossary might be the default type.
+            }
+
+            @Terms(type: "glossary") {
+                # Section Name
+            
+                - Some Term: A description for the term.
+            }
+            
+            @InsertTerms(type: "glossary")
+            
             Example link: [Anatomy of a WordProcessingML File](http://officeopenxml.com/anatomyofOOXML.php)
             
             Another example link: [WWDC Notes][wwdc-notes]
