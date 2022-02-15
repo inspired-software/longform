@@ -33,6 +33,7 @@ final class LongformTests: XCTestCase {
             
             # Heading 1
             
+            @Discrete
             ## Heading 2
             
             ## Heading With **Bold** Text
@@ -67,13 +68,19 @@ final class LongformTests: XCTestCase {
                 Glossary might be the default type.
             }
 
-            @Terms(type: "glossary") {
+            @DefineTerms(type: "glossary") {
                 # Section Name
             
                 - Some Term: A description for the term.
             }
             
-            @InsertTerms(type: "glossary")
+            @Terms(type: "glossary")
+            
+            @Terms {
+                # Section Name
+                        
+                - Some Term: A description for the term.
+            }
             
             Example link: [Anatomy of a WordProcessingML File](http://officeopenxml.com/anatomyofOOXML.php)
             
